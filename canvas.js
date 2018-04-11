@@ -18,32 +18,32 @@ left=false,
 up=false,
 down=false,
 //enemies 
-enemyTotal=4,
+enemyTotal=5,
 enemies = [],
 //first enemy pos
 enemy_x = width + 40,
-enemy_y = 10 ,
+enemy_y = height/6 ,
 //enemy size
 enemy_w = 20,
 enemy_h = 20,
 
-speed=3
-
+enemySpeed=3,
+playerSpeed=3
 
 
 function clearCanvas(){
 	c.clearRect(0,0,width, height);
 }
 for (var i = 0; i < enemyTotal; i++) {
-  enemies.push([enemy_x, enemy_y, enemy_w, enemy_h, speed]);
-  enemy_y += enemy_h +50 ;
+  enemies.push([enemy_x, enemy_y, enemy_w, enemy_h, enemySpeed]);
+  enemy_y += enemy_h +100 ;
 }
 function drawPlayer(){
 	//movement
-	if (right) player_x +=1;
-	else if (left) player_x -=1;
-	if (up) player_y -=1;
-	else if (down) player_y +=1;
+	if (right) player_x +=playerSpeed;
+	else if (left) player_x -=playerSpeed;
+	if (up) player_y -=playerSpeed;
+	else if (down) player_y +=playerSpeed;
     //keep the player in the screen
     if (player_x <= 0) player_x =0;
     if ((player_x+ player_w)>=width) player_x =width- player_w;
@@ -75,15 +75,83 @@ function drawEnemies() {
     c.fillRect(enemies[i][0], enemies[i][1], enemy_w, enemy_h);
   }
 }
+
+//var timecount =0;
 function moveEnemies() {
-  for (var i = 0; i < enemies.length; i++) {
-    if (enemies[i][0] > 0) {
-      enemies[i][0] -= enemies[i][4];
-      console.log (enemies[i][0]);
-    } else if (enemies[i][0] < width - 1) {
-      enemies[i][0] = width + 70;
-    }
-  }
+
+// var count = Math.floor((Math.random() * 10) + 1);
+// switch (count) {
+// 	case 1:
+// 		for (var i = 0; i < enemies.length; i++) {
+//     if (enemies[i][0] > 0) {
+//       enemies[i][0] -= enemies[i][4];
+//     } else if (enemies[i][0] < width - 1) {
+//       enemies[i][0] = width + 70;
+//     }
+//   }
+// 		break;
+// 	case 2:
+// 		for (var i = 0; i < enemies.length ; i++){
+// 			if (enemies[i][0] > 0){
+// 				enemies[i][0] -= enemies[i][4]*i;
+// 			}else if (enemies[i][0] < width - 1){
+// 				enemies[i][0] = width + 70;
+// 			}
+// 		}
+// 		break;
+// 	case 3:
+// 		for (var i = 0; i < enemies.length ; i++){
+// 			if (enemies[i][0] > 0){
+// 				enemies[i][0] -= enemies[i][4]*3*i;
+// 			}else if (enemies[i][0] < width - 1){
+// 				enemies[i][0] = width + 70;
+// 			}
+// 		}
+// 		break;
+// 	case 4:
+// 		for (var i = 0; i < enemies.length ; i++){
+// 			if (enemies[i][0] > 0){
+// 				enemies[i][0] -= enemies[i][4]+i;
+// 			}else if (enemies[i][0] < width - 1){
+// 				enemies[i][0] = width + 70;
+// 			}
+// 		}
+// 		break;		
+//     case 5:
+        for (var i = 0; i < enemies.length ; i++){
+        	var temp_y = enemies[i][1];
+			if (enemies[i][0] > 0){
+				enemies[i][0] -= enemies[i][4];
+				enemies[i][1] += i*Math.sin(enemies[i][4]*i);
+			}else if (enemies[i][0] < width - 1){
+				enemies[i][0] = width + 70;
+				enemies[i][1] = temp_y;
+			}
+		}
+// 		break;
+// 	case 6:
+		
+// 		break;
+// 	case 7:
+		
+// 		break;
+// 	case 8:
+		
+// 		break;
+// 	case 9:
+		
+// 		break;
+// 	case 10:
+		
+// 		break;					
+// }
+  // for (var i = 0; i < enemies.length; i++) {
+  //   if (enemies[i][0] > 0) {
+  //     enemies[i][0] -= enemies[i][4];
+  //   } else if (enemies[i][0] < width - 1) {
+  //     enemies[i][0] = width + 70;
+  //   }
+  // }
 }
 
 function init(){
